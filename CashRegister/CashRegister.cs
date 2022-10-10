@@ -4,14 +4,14 @@ namespace CashRegister
 {
 	public class CashRegister
 	{
-		private readonly Printer printer;
+		private readonly IPrinter printer;
 
-		public CashRegister()
+		public CashRegister(IPrinter printer)
 		{
-			printer = new Printer();
+			this.printer = printer;
 		}
 
-		public void Process(Purchase purchase)
+		public void Process(IPurchase purchase)
 		{
 			try
 			{
