@@ -39,7 +39,20 @@ namespace CashRegisterTest
 			//then
 			printerMock.Verify(p => p.Print(
 				It.Is<string>(s => s.Equals("PURCHASE CONTENT"))), Times.Once());
-			//verify that cashRegister.process will trigger print
+		}
+
+		[Fact]
+		public void Should_throw_hardware_exception_when_print_given_printer_throws_PrinterOutOfPaperException()
+		{
+			//given
+			Mock<IPrinter> printerMock = new Mock<IPrinter>();
+			printerMock.Setup(p => p.Print(It.IsAny<string>())).Throws(new PrinterOutOfPaperException());
+			var cashRegister = new CashRegister(printerMock.Object);
+			//when
+			//then
+			HardwareException hardwareException = Assert.Throws<HardwareException>(
+				() => cashRegister.Process(new Purchase()));
+			Assert.Equal("Printer is out of paper.", hardwareException.Message);
 		}
 	}
 }
