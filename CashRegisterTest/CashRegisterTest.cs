@@ -18,5 +18,19 @@ namespace CashRegisterTest
 			//verify that cashRegister.process will trigger print
 			Assert.NotNull(newPrinter.GetNeedPrintContent());
 		}
+
+		[Fact]
+		public void Should_process_execute_printing_without_real_printer()
+		{
+			//given
+			var mockPrinter = new MockPrinter();
+			var cashRegister = new CashRegister(mockPrinter);
+			var purchase = new Purchase();
+			//when
+			cashRegister.Process(purchase);
+			//then
+			//verify that cashRegister.process will trigger print
+			Assert.NotNull(mockPrinter.GetPrintContent());
+		}
 	}
 }

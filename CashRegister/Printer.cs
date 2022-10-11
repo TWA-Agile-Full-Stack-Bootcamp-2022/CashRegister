@@ -2,7 +2,7 @@ using System;
 
 namespace CashRegister
 {
-    public class Printer
+    public class Printer : IPrinter
     {
         private string needPrintContent;
 
