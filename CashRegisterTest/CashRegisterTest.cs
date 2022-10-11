@@ -44,5 +44,16 @@ namespace CashRegisterTest
 			//then
 			Assert.Contains("content", mockPrinter.GetPrintContent());
 		}
+
+		[Fact]
+		public void Should_thrown_hardware_exception_when_process_execute_when_printer_has_out_of_paper_exception()
+		{
+			//given
+			var mockExceptionPrinter = new MockExceptionPrinter();
+			var cashRegister = new CashRegister(mockExceptionPrinter);
+			var purchase = new Purchase();
+			//then
+			Assert.Throws<HardwareException>(() => cashRegister.Process(purchase));
+		}
 	}
 }
