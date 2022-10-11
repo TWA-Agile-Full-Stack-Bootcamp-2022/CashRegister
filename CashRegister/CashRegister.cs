@@ -11,7 +11,7 @@ namespace CashRegister
             this.printer = newPrinter;
         }
 
-        public void Process(Purchase purchase)
+        public void Process(IPurchase purchase)
         {
             try
             {

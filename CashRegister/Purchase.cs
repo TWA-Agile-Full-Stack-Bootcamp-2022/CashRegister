@@ -2,7 +2,7 @@ using System;
 
 namespace CashRegister
 {
-	public class Purchase
+	public class Purchase : IPurchase
 	{
 		private readonly string content;
 
