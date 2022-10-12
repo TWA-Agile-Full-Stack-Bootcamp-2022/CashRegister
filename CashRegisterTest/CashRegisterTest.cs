@@ -39,8 +39,9 @@ namespace CashRegisterTest
         public void Should_throw_HardwareException_when_process_given_out_of_paper_printer()
         {
             //given
-            var printer = new MockOutOfPaperPrinter();
-            var cashRegister = new CashRegister(printer);
+            var printer = new Mock<IPrinter>();
+            printer.Setup(p => p.Print(It.IsAny<string>())).Throws<PrinterOutOfPaperException>();
+            var cashRegister = new CashRegister(printer.Object);
             var purchase = new Purchase();
             //when
             Action act = () => cashRegister.Process(purchase);
