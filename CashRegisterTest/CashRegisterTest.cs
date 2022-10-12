@@ -26,13 +26,13 @@ namespace CashRegisterTest
         public void Should_process_execute_printing_with_the_content_from_the_processed_Purchase()
         {
             //given
-            var printer = new MockPrinter();
-            var cashRegister = new CashRegister(printer);
+            var printer = new Mock<IPrinter>();
+            var cashRegister = new CashRegister(printer.Object);
             var purchase = new Purchase();
             //when
             cashRegister.Process(purchase);
             //then
-            Assert.StartsWith("content", printer.PrintContent);
+            printer.Verify(p => p.Print(It.Is<string>(content => content.StartsWith("content"))), Times.Once());
         }
 
         [Fact]
