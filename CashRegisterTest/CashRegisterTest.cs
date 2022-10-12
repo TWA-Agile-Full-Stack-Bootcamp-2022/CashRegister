@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using Moq;
 
 namespace CashRegisterTest
@@ -12,13 +13,13 @@ namespace CashRegisterTest
         public void Should_process_execute_printing()
         {
             //given
-            var printer = new MockPrinter();
-            var cashRegister = new CashRegister(printer);
+            var printer = new Mock<IPrinter>();
+            var cashRegister = new CashRegister(printer.Object);
             var purchase = new Purchase();
             //when
             cashRegister.Process(purchase);
             //then
-            Assert.NotEmpty(printer.PrintContent);
+            printer.Verify(p => p.Print(It.IsAny<string>()), Times.Once());
         }
 
         [Fact]
