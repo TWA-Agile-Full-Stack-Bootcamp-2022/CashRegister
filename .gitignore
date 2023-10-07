@@ -9,3 +9,6 @@
 /CashRegisterTest/obj
 .idea
 .vscode
+
+/coveragereport
+TestResults
