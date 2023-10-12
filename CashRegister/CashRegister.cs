@@ -6,6 +6,11 @@ namespace CashRegister
 	{
 		private readonly Printer printer;
 
+		public CashRegister(Printer printer)
+        {
+			this.printer = printer;
+        }
+
 		public CashRegister()
 		{
 			printer = new Printer();
