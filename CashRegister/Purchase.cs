@@ -9,10 +9,10 @@ namespace CashRegister
 		public Purchase()
 		{
 			content = "content";
-		}
+        }
 
-		public string AsString()
-		{
+		public virtual string AsString()
+        {
 			return content + Timestamp();
 		}
 
