@@ -1,7 +1,8 @@
 namespace CashRegisterTest
 {
 	using CashRegister;
-	using Xunit;
+    using System;
+    using Xunit;
 
 	public class CashRegisterTest
 	{
@@ -34,6 +35,20 @@ namespace CashRegisterTest
             cashRegister.Process(strubPurchase);
             // then
             Assert.Equal(givenPurchaseInfo, spyPrinter.PrintContentRecived);
+        }
+
+		[Fact]
+		public void Should_throw_HardwareException_given_printer_is_out_of_paper()
+        {
+            //given
+            var stubOutOfPaperPrinter = new StubOutOfPaperPrinter();
+            var cashRegister = new CashRegister(stubOutOfPaperPrinter);
+            var purchase = new Purchase();
+            //when
+            Action action = () => cashRegister.Process(purchase);
+            //then
+            Exception exception = Assert.Throws<HardwareException>(action);
+            Assert.Equal("Printer is out of paper.", exception.Message);
         }
     }
 }
