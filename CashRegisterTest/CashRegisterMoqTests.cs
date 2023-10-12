@@ -2,6 +2,7 @@
 {
     using CashRegister;
     using Moq;
+    using System;
     using Xunit;
 
     public class CashRegisterMoqTests
@@ -39,6 +40,21 @@
             // then
             mockedPrinter.Verify(printer => printer.Print(givenPurchaseInfo), Times.Once);
             //Assert.Equal(givenPurchaseInfo, mockedPrinter.PrintContentRecived);
+        }
+
+        [Fact]
+        public void Should_throw_HardwareException_given_printer_is_out_of_paper()
+        {
+            //given
+            Mock<Printer> mockedPrinter = new Mock<Printer>();
+            mockedPrinter.Setup(printer => printer.Print(It.IsAny<string>())).Throws(new PrinterOutOfPaperException());
+            var cashRegister = new CashRegister(mockedPrinter.Object);
+            var purchase = new Purchase();
+            //when
+            Action action = () => cashRegister.Process(purchase);
+            //then
+            Exception exception = Assert.Throws<HardwareException>(action);
+            Assert.Equal("Printer is out of paper.", exception.Message);
         }
     }
 }
