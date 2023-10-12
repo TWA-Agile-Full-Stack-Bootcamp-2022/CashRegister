@@ -1,8 +1,8 @@
 namespace CashRegisterTest
 {
 	using CashRegister;
-    using System;
-    using Xunit;
+	using System;
+	using Xunit;
 
 	public class CashRegisterTest
 	{
