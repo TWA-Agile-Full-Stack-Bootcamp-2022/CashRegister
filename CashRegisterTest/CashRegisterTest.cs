@@ -20,8 +20,8 @@ namespace CashRegisterTest
             mock.Verify(x => x.Print("1234"));
 		}
 
-        [Fact]
-        public void Should_thrown_when_print_outofpaper()
+		[Fact]
+		public void Should_thrown_when_print_outofpaper()
         {
             Mock<Printer> printerMock = new Mock<Printer>();
             CashRegister cashRegister = new CashRegister(printerMock.Object);
